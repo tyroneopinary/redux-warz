@@ -6,9 +6,7 @@ import { fetchNames } from './fetch'
 export const FETCH_REQUEST = 'FETCH_REQUEST';
 export const FETCH_SUCCESS = 'FETCH_SUCCESS';
 
-export const fetchRequest = () => ({
-  type: FETCH_REQUEST
-})
+export const fetchRequest = () => ({ type: FETCH_REQUEST })
 
 export const fetchSuccess = items => ({
   type: FETCH_SUCCESS,
@@ -16,7 +14,7 @@ export const fetchSuccess = items => ({
 })
 
 // Thunks
-export const requestData = () => async (dispatch: Dispatch) => {
+export const requestData = () => async (dispatch) => {
   try {
     const response = await fetchNames()
     const jsonResponse = await response.json()
@@ -32,9 +30,9 @@ const initialState = {
 }
 
 // Reducer
-export const reducer = (state: Object = initialState, action: Object) => {
+export const reducer = (state = initialState, action) => {
   switch (action.type) {
-    
+
     case FETCH_REQUEST:
       return state
 

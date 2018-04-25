@@ -4,44 +4,38 @@ import { requestData } from './redux';
 import logo from './logo.svg'
 import './App.css'
 
-type Props = {
-  requestData: () => void
-}
-
-class App extends Component<Props> {
+class App extends Component {
 
   state = {
-    names: []
+    items: {
+      results: []
+    }
   }
 
   componentDidMount() {
     this.props.requestData()
   }
-  
+
   render() {
-    const { names } = this.state
-    
+    const { items } = this.props
+
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
         </header>
-        <ul> {names.map(names => <li>{names.name}</li>)} </ul>
+
+        {items
+          ? (<ul>{items.results.map(item => <li key={item.name}>{item.name}</li>)} </ul>)
+          : <p> loading...</p>
+        }
       </div>
     )
   }
 }
 
-const mapStateToProps = (state) => {
-  console.log(state)
-    return {
-      names: state.names,
-    };
-};
+const mapStateToProps = (state) => ({ items: state.items })
 
-
-const mapDispatchToProps = {
-  requestData
-}
+const mapDispatchToProps = { requestData }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
